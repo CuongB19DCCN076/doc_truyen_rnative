@@ -5,16 +5,15 @@ import { doc, getDoc } from "firebase/firestore";
 // Required for side-effects
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./main/Home";
-import Favourite from "./main/Favourite";
 import Profile from "./main/Profile";
 import { useDispatch } from "react-redux";
+import History from "./main/History";
 const Tab = createBottomTabNavigator();
 
 function Main() {
   const dispatch = useDispatch();
 
   // Create a reference to the SF doc.
-  console.log("12222", getDoc(doc(db, "users", auth.currentUser.uid)));
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -30,12 +29,12 @@ function Main() {
         }}
       />
       <Tab.Screen
-        name="Favourite"
-        component={Favourite}
+        name="History"
+        component={History}
         options={{
           tabBarIcon: () => (
             <Image
-              source={require("../images/favourite.png")}
+              source={require("../images/his.png")}
               style={{ width: 30, height: 30 }}
             />
           ),

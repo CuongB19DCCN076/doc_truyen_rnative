@@ -7,6 +7,7 @@ import Login from "./components/auth/Login";
 import Main from "./components/Main";
 import Info from "./components/main/Info";
 import Content from "./components/main/Content";
+import Help from "./components/main/Help";
 
 const Stack = createStackNavigator();
 export default function Render() {
@@ -34,6 +35,7 @@ export default function Render() {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="Thông tin truyện" component={Info} />
+        <Stack.Screen name="Hỗ Trợ" component={Help} />
         <Stack.Screen name="Content" component={Content} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>

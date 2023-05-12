@@ -6,13 +6,16 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useRef, useState } from "react";
+import React from "react";
 import { intiState } from "./Home";
 import { useDispatch, useSelector } from "react-redux";
-import { setChap } from "../../redux/actions";
+import { addHistory, setChap } from "../../redux/actions";
 export default function Content() {
   const data = useSelector((state) => {
     return state.test;
+  });
+  const theme = useSelector((state) => {
+    return state.reTheme;
   });
   const dispatch = useDispatch();
   const itemTruyen = intiState.home.find(
@@ -22,21 +25,30 @@ export default function Content() {
     (element) => element.id === data.idChap
   );
   const handlePrev = () => {
+    dispatch(addHistory({idHistoryTruyen: itemTruyen.id, idHistoryChap: data.idChap-1}))
     dispatch(setChap(data.idChap-1))
   }
   const handleNext = () => {
+    dispatch(addHistory({idHistoryTruyen: itemTruyen.id, idHistoryChap: data.idChap+1}))
     dispatch(setChap(data.idChap+1))
   }
   return (
-    <View>
+    <View style={{backgroundColor: theme.theme === "white" ? "#ddd" : "black"}}>
+      <View style={{justifyContent: "center", alignItems: "center", height: 100, backgroundColor: "pink", position: "absolute", width: "100%", zIndex: 999}}>
+        <Text style={{fontSize:22, top: 12, color: "white"}}>{itemTruyen.name}</Text>
+        <Text style={{fontSize:16, top: 14, color: "white"}}>Chapter: {data.idChap}</Text>
+      </View>
       <ScrollView style={{
+        top: 110,
       }}>
         {itemChap.content.map((item, index) => {
           return (
-            <Image key={index}
+            <View style={{ width: "96%", height: 700, borderRadius: 10, left: "2%", marginVertical: 2 }} key={index}>
+            <Image 
               source={{ uri: item }}
-              style={{ width: "96%", height: 200, borderRadius: 10 }}
-            />
+              style={{ width: "100%", height: 700, borderRadius: 10, marginVertical: 2 }}
+              />
+              </View>
           );
         })}
       </ScrollView>
@@ -56,6 +68,7 @@ export default function Content() {
             alignItems: "center",
             padding: 10,
             width: 180,
+            height: 44,
             backgroundColor: "#ccc",
             marginRight: 6,
             borderRadius: 10,
@@ -75,6 +88,7 @@ export default function Content() {
             alignItems: "center",
             padding: 10,
             width: 180,
+            height:44,
             backgroundColor: "#ccc",
             borderRadius: 10,
             opacity: data.idChap === itemTruyen.chapter.length ? 0.4 : 1

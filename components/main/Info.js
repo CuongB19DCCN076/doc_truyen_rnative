@@ -7,29 +7,49 @@ import {
   View,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import React, { useEffect } from "react";
+import React from "react";
 import { intiState } from "./Home";
-import { setChap } from "../../redux/actions";
+import { addHistory, setChap } from "../../redux/actions";
 export default function Info(props) {
   const data = useSelector((state) => {
     return state.test;
   });
-  // const dispatch = useDispatch();
+  const theme = useSelector((state) => {
+    return state.reTheme;
+  });
+  const history = useSelector((state) => {
+    return state.historyItem;
+  });
+  console.log(history)
   const item = intiState.home.find((element) => element.id === data.idTruyen);
   const dispatch = useDispatch();
   const navi = props.navigation;
   const onHandleChap = (id) => {
     dispatch(setChap(id));
+    dispatch(addHistory({idHistoryTruyen: data.idTruyen, idHistoryChap: id}))
+    navi.navigate("Content")
+  };
+  const onHandleStart = () => {
+    dispatch(setChap(1));
+    dispatch(addHistory({idHistoryTruyen: data.idTruyen, idHistoryChap: 1}))
+    navi.navigate("Content")
+  };
+  const onHandleEnd = () => {
+    dispatch(setChap(item.chapter.length));
+    dispatch(addHistory({idHistoryTruyen: data.idTruyen, idHistoryChap: item.chapter.length}))
     navi.navigate("Content")
   };
   return (
-    <ScrollView>
+    <ScrollView style={{
+      backgroundColor: theme.theme === "white" ? "white" : "black"
+    }}>
       <Text
         style={{
           width: "100%",
           textAlign: "center",
           fontSize: 30,
           fontWeight: "500",
+          color: theme.theme === "white" ? "black" : "white"
         }}
       >
         {item.name}
@@ -45,7 +65,7 @@ export default function Info(props) {
               source={require("../../images/author.png")}
               style={{ width: 25, height: 25 }}
             />
-            <Text style={{ fontSize: 20, marginLeft: 10 }}>{item.author}</Text>
+            <Text style={{ fontSize: 20, marginLeft: 10,color: theme.theme === "white" ? "black" : "white" }}>{item.author}</Text>
           </View>
           <View
             style={{
@@ -58,7 +78,7 @@ export default function Info(props) {
               source={require("../../images/trang_thai.png")}
               style={{ width: 25, height: 25 }}
             />
-            <Text style={{ fontSize: 16, marginLeft: 10 }}>{item.state}</Text>
+            <Text style={{ fontSize: 16, marginLeft: 10, color: theme.theme === "white" ? "black" : "white" }}>{item.state}</Text>
           </View>
           <View
             style={{
@@ -77,8 +97,10 @@ export default function Info(props) {
                     borderStyle: "solid",
                     borderWidth: 1,
                     borderRadius: 3,
+                    borderColor: theme.theme === "white" ? "black" : "white",
                     padding: 5,
                     margin: 5,
+                    color: theme.theme === "white" ? "black" : "white"
                   }}
                 >
                   {it}
@@ -102,7 +124,19 @@ export default function Info(props) {
           Giới thiệu
         </Text>
         <View>
-          <Text>{item.introduce}</Text>
+          <Text style={{color: theme.theme === "white" ? "black" : "white"}}>{item.introduce}</Text>
+        </View>
+        <View style={{flexDirection: "row", marginTop: 10}}>
+          <TouchableOpacity onPress={() => onHandleStart()} style={{width: "48%", justifyContent: "center", borderColor: "green", borderWidth: 1, padding: 6, borderRadius: 5, backgroundColor: "green"}} >
+            <Text style={{textAlign: "center", color: "white", fontSize: 14, fontWeight: "500"}}>
+            Đọc từ đầu
+            </Text>
+          </TouchableOpacity >
+          <TouchableOpacity onPress={() => onHandleEnd()} style={{width: "48%", justifyContent: "center", borderColor: "orange", borderWidth: 1, padding: 6, borderRadius: 5, backgroundColor: "orange", marginLeft: 4}}>
+            <Text style={{textAlign: "center", color: "white", fontSize: 14, fontWeight: "500"}}>
+            Đọc chap mới nhất
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
       <View style={{ marginTop: 10, marginHorizontal: 10 }}>
@@ -129,6 +163,7 @@ export default function Info(props) {
                       borderBottomWidth: 1,
                       borderColor: "#ccc",
                       textAlign: "center",
+                      color: theme.theme === "white" ? "black" : "white"
                     }}
                   >
                     Chapter {item.id}

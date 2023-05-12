@@ -39,8 +39,11 @@ export default function Login({ navigation }) {
   
   return (
     <View style={styles.container}>
-      <ImageBackground source={require("../../images/splash_image.jpg")} resizeMode="cover" style={styles.image}>
+      <ImageBackground source={require("../../images/hn.jpg")} resizeMode="cover" style={styles.image}>
         <View style={styles.top}></View>
+        <View>
+          <Text style={{fontSize: 38, fontWeight: "500", color: "#F26B8F"}}>Login</Text>
+        </View>
         <TextInput
           style={styles.input}
           placeholder="Email"
@@ -50,13 +53,21 @@ export default function Login({ navigation }) {
         <TextInput
           style={styles.input}
           placeholder="Password"
+          secureTextEntry={true}
           onChangeText={(password) => setUser({ ...user, password: password })}
         /> 
         {checkLogin && <Text style={{alignItems: "flex-start", marginTop: 15,color: "red"}}>Email hoặc Mật khẩu chưa chính xác</Text>}
         <TouchableOpacity style={styles.button} onPress={() => onHandle()} >
-          <Text>Đăng nhập</Text>
+          <Text style={{color: "white"}}>Đăng nhập</Text>
         </TouchableOpacity>
-        
+        <View style={{flexDirection: "row", marginTop: 6}}>
+          <Text style={{color: "black", fontSize: 16}}>Bạn chưa có tài khoản ? </Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+            <Text style={{color: "green", fontSize: 16, fontWeight: 500, textDecorationLine: "underline"}}>
+              Register
+            </Text>
+          </TouchableOpacity>
+        </View>
       </ImageBackground>
     </View>
   );
@@ -76,7 +87,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     padding: 10,
     borderWidth: 2, // Độ dày của border
-    borderColor: "#ccc", // Màu của border
+    borderColor: "green", // Màu của border
     borderRadius: 10, // Độ cong của góc
     color: "black",
     fontSize: 15
@@ -84,7 +95,7 @@ const styles = StyleSheet.create({
   button: {
     margin: 10,
     width: 250,
-    backgroundColor: "#2C5959",
+    backgroundColor: "green",
     borderRadius: 10,
     padding: 10,
     justifyContent: "center",

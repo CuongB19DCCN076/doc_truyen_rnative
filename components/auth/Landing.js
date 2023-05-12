@@ -19,7 +19,7 @@ export default function Landing({ navigation }) {
       }}
     >
       <ImageBackground
-        source={require("../../images/splash_image.jpg")}
+        source={require("../../images/hn.jpg")}
         resizeMode="cover"
         style={styles.image}
       >
@@ -43,10 +43,11 @@ export default function Landing({ navigation }) {
           }}>
           <Text
             style={{
-              fontSize: 15,
+              fontSize: 18,
               fontWeight: "400",
               color: "#F26B8F",
-              marginBottom: 30,
+              marginBottom: 20,
+              marginHorizontal: 5
             }}
           >
             Nơi cập nhật những bộ truyện hot, truyện hay, truyện mới nhất hiện
@@ -56,13 +57,13 @@ export default function Landing({ navigation }) {
             style={styles.button}
             onPress={() => navigation.navigate("Login")}
           >
-            <Text>Đăng Nhập</Text>
+            <Text style={{color: "white"}}>Đăng Nhập</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
             onPress={() => navigation.navigate("Register")}
           >
-            <Text>Đăng Ký</Text>
+            <Text style={{color: "white"}}>Đăng Ký</Text>
           </TouchableOpacity>
         </View>
       </ImageBackground>
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
   button: {
     margin: 10,
     width: 250,
-    backgroundColor: "#2C5959",
+    backgroundColor: "green",
     borderRadius: 10,
     padding: 10,
     justifyContent: "center",
