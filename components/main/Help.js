@@ -11,19 +11,19 @@ export default function Help() {
       style={{
         margin: 0,
         flex: 1,
-        backgroundColor: theme === "white" ? "white" : "black",
+        backgroundColor: theme.theme === "white" ? "white" : "black",
       }}
     >
       <View style={{margin: 30}}>
         <Text
-          style={{ fontSize: 30, color: theme === "white" ? "black" : "white" }}
+          style={{ fontSize: 30, color: theme.theme === "white" ? "black" : "white" }}
         >
           Mọi thắc mắc vui lòng liên hệ tới email:{" "}
         </Text>
         <Text
-          style={{ fontSize: 20, color: theme === "white" ? "black" : "white" }}
+          style={{ fontSize: 20, color: theme.theme === "white" ? "black" : "white" }}
         >
-          nvcuong1904@gmail.com{" "}
+          nvcuong19042001@gmail.com{" "}
         </Text>
       </View>
     </View>

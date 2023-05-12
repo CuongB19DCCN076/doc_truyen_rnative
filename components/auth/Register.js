@@ -29,6 +29,7 @@ export default function Register({ navigation }) {
           email,
         });
         setCheckReg(false);
+        navigation.navigate("Login")
         // ...
       })
       .catch((error) => {

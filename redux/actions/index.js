@@ -10,4 +10,9 @@ export const setTheme = (theme) => {
 export const addHistory = (item) => {
   return { type: "addHistory", payload: item };
 };
-
+export const addComment = (item) => {
+  return { type: "addComment", payload: item };
+};
+export const deleteComment = (item) => {
+  return { type: "deleteComment", payload: item };
+};
