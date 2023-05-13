@@ -11,6 +11,7 @@ import Card from "../component/Card";
 import { TouchableOpacity } from "react-native";
 import ItemSearch from "./ItemSearch";
 import { useSelector } from "react-redux";
+import { child, get, getDatabase, ref } from "firebase/database";
 export const intiState = {
   home: [
     {
@@ -66,7 +67,6 @@ export const intiState = {
             "https://3.bp.blogspot.com/-aDwB246ccN8/U4vQ0resFfI/AAAAAAAAAI0/FTEQijlqG0Q/s1600/Chuong_001-OP01-40.jpg",
             "https://cdn0.fahasa.com/media/flashmagazine/images/page_images/one_piece_tap_3_thu_khong_the_noi_doi_tai_ban_2019/2020_10_05_14_37_44_13-390x510.jpg",
             "https://s16.directupload.net/images/190428/9vve3ob3.png",
-            
           ],
         },
         {
@@ -89,7 +89,6 @@ export const intiState = {
             "https://cdn0.fahasa.com/media/flashmagazine/images/page_images/one_piece_tap_5_chuong_nguyen_vi_ai_tai_ban_2019/2020_10_05_14_34_04_11-390x510.jpg",
             "https://tse1.mm.bing.net/th?id=OIP.tqmc8Lge1IImZHU9KKq3owHaLP&pid=Api&P=0",
             "https://www.funmanga.com/uploads/chapter_files/5404/5/p_00007.jpg",
-            
           ],
         },
         {
@@ -101,7 +100,6 @@ export const intiState = {
             "https://3.bp.blogspot.com/-QEv9SIcDwkc/VGLSNx2GHfI/AAAAAAAABcM/6aKkyLnMSWE/s1600/T%E1%BA%ADp%2B014%2B(16).jpg",
             "https://3.bp.blogspot.com/-aDwB246ccN8/U4vQ0resFfI/AAAAAAAAAI0/FTEQijlqG0Q/s1600/Chuong_001-OP01-40.jpg",
             "https://tse2.mm.bing.net/th?id=OIP.pIu5vDdMoPaqTx5YgiUQQgHaKl&pid=Api&P=0",
-            
           ],
         },
         {
@@ -113,7 +111,6 @@ export const intiState = {
             "https://tse1.mm.bing.net/th?id=OIP.x5vHgrKKYRrWavpeHMAtrgHaLP&pid=Api&P=0",
             "https://tse1.mm.bing.net/th?id=OIP.4gLQeWYpM-DRiSWf-kgjoAHaLH&pid=Api&P=0",
             "https://tse1.explicit.bing.net/th?id=OIP.UamlOVRjZh_2Gp8xS4o_4wDKEz&pid=Api&P=0",
-            
           ],
         },
         {
@@ -125,10 +122,8 @@ export const intiState = {
             "https://images2.imgbox.com/05/77/K1MC4Cl7_o.png",
             "https://tse4.mm.bing.net/th?id=OIP.ay3O51vymRYQPqveM0l79QHaLP&pid=Api&P=0",
             "https://s199.imacdn.com/tt24/2022/09/09/ea10f8707e3e175c_2db89052837708fd_560205166270803211.jpg",
-            
           ],
         },
-        
       ],
     },
     {
@@ -182,7 +177,7 @@ export const intiState = {
             "https://tse2.mm.bing.net/th?id=OIP.iEEJkQmaH7drsEWgh2swnwDSEp&pid=Api&P=0",
             "https://tse1.mm.bing.net/th?id=OIP.t3ih22MP8t2ig-vjF2HQpgHaLo&pid=Api&P=0",
             "https://tse4.explicit.bing.net/th?id=OIP.9Sf1fN9j-PN5WSNhra_ngwHaKi&pid=Api&P=0",
-            "https://tse4.explicit.bing.net/th?id=OIP.9Sf1fN9j-PN5WSNhra_ngwHaKi&pid=Api&P=0"
+            "https://tse4.explicit.bing.net/th?id=OIP.9Sf1fN9j-PN5WSNhra_ngwHaKi&pid=Api&P=0",
           ],
         },
         {
@@ -194,7 +189,7 @@ export const intiState = {
             "https://tse1.mm.bing.net/th?id=OIP.03SNsivJCVDWcllL7oVmwAHaKp&pid=Api&P=0",
             "https://tse1.mm.bing.net/th?id=OIP.KV2AXt8euZPKSlXJjI9B7gHaKd&pid=Api&P=0",
             "https://tse1.mm.bing.net/th?id=OIP.O-nyjJkmjyjdCPmczH_FqAHaH5&pid=Api&P=0",
-            "https://tse3.mm.bing.net/th?id=OIP.Xqlj3EZd6WI7sSSUeokujwHaKi&pid=Api&P=0"
+            "https://tse3.mm.bing.net/th?id=OIP.Xqlj3EZd6WI7sSSUeokujwHaKi&pid=Api&P=0",
           ],
         },
         {
@@ -207,7 +202,7 @@ export const intiState = {
             "https://tse1.mm.bing.net/th?id=OIP.xI6yQ_WAC8LX8geTZ_1UhAHaKi&pid=Api&P=0",
             "https://tse3.mm.bing.net/th?id=OIP.fyZp4J1yhlYJ2i6lc8BvpwHaKi&pid=Api&P=0",
             "https://tse1.mm.bing.net/th?id=OIP.YrHOsCasVq47_UZL0SbSEwHaKp&pid=Api&P=0",
-            "https://tse1.mm.bing.net/th?id=OIP.ZhfaJE2kET2oKiTyoYkiswHaLo&pid=Api&P=0"
+            "https://tse1.mm.bing.net/th?id=OIP.ZhfaJE2kET2oKiTyoYkiswHaLo&pid=Api&P=0",
           ],
         },
       ],
@@ -264,7 +259,7 @@ export const intiState = {
             "https://tse1.mm.bing.net/th?id=OIP.PtLJJV5rhnrLKiQhRGoDWAHaKt&pid=Api&P=0",
             "https://tse2.mm.bing.net/th?id=OIP.nl_OwB0b3kd3mv2KTqV9MAHaKi&pid=Api&P=0",
             "https://tse2.mm.bing.net/th?id=OIP.3io5quS8y-SZJnXk8SjXvwHaKj&pid=Api&P=0",
-            "https://tse1.mm.bing.net/th?id=OIP.H3k9esXdHscTRd0soVDIIQHaKt&pid=Api&P=0"
+            "https://tse1.mm.bing.net/th?id=OIP.H3k9esXdHscTRd0soVDIIQHaKt&pid=Api&P=0",
           ],
         },
       ],
@@ -385,7 +380,7 @@ export const intiState = {
             "https://tse3.mm.bing.net/th?id=OIP.v28Hfa11_6YlSI-jqQRnMgHaLI&pid=Api&P=0",
             "https://tse2.mm.bing.net/th?id=OIP.FzI7neKjCfMElezgM6wqXQHaJ_&pid=Api&P=0",
             "https://tse3.explicit.bing.net/th?id=OIP.H6ov1pLlfPpOkNV2Tqh3lQHaOe&pid=Api&P=0",
-            "https://tse1.explicit.bing.net/th?id=OIP.1UbVkPLQv4n9nwHgHNtFEgHaKa&pid=Api&P=0"
+            "https://tse1.explicit.bing.net/th?id=OIP.1UbVkPLQv4n9nwHgHNtFEgHaKa&pid=Api&P=0",
           ],
         },
         {
@@ -396,7 +391,7 @@ export const intiState = {
             "https://tse4.mm.bing.net/th?id=OIP.1ApGm-O3Y9L8_-9EYaxdAQHaJc&pid=Api&P=0",
             "https://tse4.mm.bing.net/th?id=OIP.mevjs5CpWjrNqnaasF89VwHaOo&pid=Api&P=0",
             "https://tse1.mm.bing.net/th?id=OIP.O-isMmh2FFaJAV95-GsuJQHaJ2&pid=Api&P=0",
-            "https://tse2.explicit.bing.net/th?id=OIP.yM6H3_icd9DQt8sw-nJnXgHaLR&pid=Api&P=0"
+            "https://tse2.explicit.bing.net/th?id=OIP.yM6H3_icd9DQt8sw-nJnXgHaLR&pid=Api&P=0",
           ],
         },
         {
@@ -407,7 +402,7 @@ export const intiState = {
             "https://tse4.mm.bing.net/th?id=OIP.QrgKAwwWMKagQaQDdPsvXgHaLH&pid=Api&P=0",
             "https://tse1.mm.bing.net/th?id=OIP.pb3KOtWq76yywZXlhYru_AHaNr&pid=Api&P=0",
             "https://tse1.mm.bing.net/th?id=OIP.Ve6mxoxK9-GXdFYgtzy4tAHaKa&pid=Api&P=0",
-            "https://tse4.mm.bing.net/th?id=OIP.fTbkSi3a62mc8Ix_X6rdnAHaKS&pid=Api&P=0"
+            "https://tse4.mm.bing.net/th?id=OIP.fTbkSi3a62mc8Ix_X6rdnAHaKS&pid=Api&P=0",
           ],
         },
       ],
@@ -530,10 +525,27 @@ export const intiState = {
     },
   ],
 };
+const dbRef = ref(getDatabase());
+export var dataComments = [];
+setInterval(() => {
+  get(child(dbRef, `comments`))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        var newdata = [];
+        snapshot.val().forEach((item) => newdata.push(item));
+        newdata.reverse();
+        dataComments = newdata;
+      } 
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}, 500);
+
 export default function Home({ navigation }) {
   const theme = useSelector((state) => {
     return state.reTheme;
-  }); 
+  });
   const [search, setSearch] = useState("");
   const [itemSearch, setItemSearch] = useState([]);
   useEffect(() => {
@@ -548,9 +560,11 @@ export default function Home({ navigation }) {
     };
   }, [search]);
   return (
-    <ScrollView style={{
-      backgroundColor: theme.theme === "white" ? "#ddd" : "black"
-    }}>
+    <ScrollView
+      style={{
+        backgroundColor: theme.theme === "white" ? "#ddd" : "black",
+      }}
+    >
       <TouchableOpacity
         style={{
           margin: 8,
@@ -562,7 +576,7 @@ export default function Home({ navigation }) {
           borderWidth: 1,
           borderColor: "red",
           zIndex: 9999,
-          backgroundColor: "#ddd"
+          backgroundColor: "#ddd",
         }}
       >
         <Image

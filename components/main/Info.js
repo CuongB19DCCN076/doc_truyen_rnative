@@ -9,11 +9,26 @@ import {
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import React, { useState } from "react";
-import { intiState } from "./Home";
-import { addComment, addHistory, deleteComment, setChap } from "../../redux/actions";
+import { dataComments, intiState } from "./Home";
+import {
+  addComment,
+  addHistory,
+  deleteComment,
+  setChap,
+} from "../../redux/actions";
 import { auth } from "../../firebase";
 import { useEffect } from "react";
+import { child, get, getDatabase, ref, set } from "firebase/database";
 export default function Info(props) {
+  const [newState, setNewState] = useState(false);
+  function writeData(userId, email, comment) {
+    const db = getDatabase();
+    set(ref(db, `comments/` + userId), {
+      email: email,
+      comment: comment,
+    });
+  }
+
   const data = useSelector((state) => {
     return state.test;
   });
@@ -31,7 +46,6 @@ export default function Info(props) {
   const [comments, setComments] = useState(
     commentsData.find((it) => it.idTruyen === item.id)
   );
-  console.log(comments);
   const dispatch = useDispatch();
   const navi = props.navigation;
   const onHandleChap = (id) => {
@@ -55,26 +69,12 @@ export default function Info(props) {
     navi.navigate("Content");
   };
   const onHandleSend = () => {
-    dispatch(
-      addComment({
-        idTruyen: item.id,
-        name: auth.currentUser.email,
-        comment: userComment,
-      })
-    );
-    navi.navigate("Home");
-    navi.navigate("Thông tin truyện");
+    writeData(dataComments.length, auth.currentUser.email, userComment);
+    setTimeout(() => {
+      setNewState(!newState);
+    },1000)
   };
   const onHandleDelete = (it) => {
-    dispatch(
-      deleteComment({
-        idTruyen: item.id,
-        name: it.name,
-        comment: it.comment,
-      })
-    );
-    navi.navigate("Home");
-    navi.navigate("Thông tin truyện");
   };
   return (
     <ScrollView
@@ -320,7 +320,7 @@ export default function Info(props) {
           </TouchableOpacity>
         </View>
         <View>
-          {comments.comments.map((item, index) => {
+          {dataComments.map((item, index) => {
             return (
               <View
                 style={{
@@ -335,20 +335,29 @@ export default function Info(props) {
                     source={require(`../../images/ava4.jpg`)}
                     style={{ width: 50, height: 50, marginRight: 3 }}
                   />
-                  <Text style={{ fontSize: 18, marginLeft: 5, color: "green", width:"70%" }}>
-                    {item.name}
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      marginLeft: 5,
+                      color: "green",
+                      width: "70%",
+                    }}
+                  >
+                    {item.email}
                   </Text>
-                  { auth.currentUser.email === item.name && <TouchableOpacity onPress={() => onHandleDelete(item)}>
-                    <Image
-                      source={require("../../images/delete.jpg")}
-                      style={{
-                        width: 25,
-                        height: 25,
-                        borderRadius: 100,
-                        marginLeft: 3,
-                      }}
-                    />
-                  </TouchableOpacity>}
+                  {auth.currentUser.email === item.name && (
+                    <TouchableOpacity onPress={() => onHandleDelete(item)}>
+                      <Image
+                        source={require("../../images/delete.jpg")}
+                        style={{
+                          width: 25,
+                          height: 25,
+                          borderRadius: 100,
+                          marginLeft: 3,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  )}
                 </View>
                 <Text
                   style={{
