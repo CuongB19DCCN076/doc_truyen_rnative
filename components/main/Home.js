@@ -535,10 +535,10 @@ setInterval(() => {
         snapshot.val().forEach((item) => newdata.push(item));
         newdata.reverse();
         dataComments = newdata;
-      } 
+      }
     })
     .catch((error) => {
-      console.error(error);
+      console.error("error: ", error);
     });
 }, 500);
 

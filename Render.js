@@ -8,6 +8,7 @@ import Main from "./components/Main";
 import Info from "./components/main/Info";
 import Content from "./components/main/Content";
 import Help from "./components/main/Help";
+import Avatar from "./components/main/Avatar";
 
 const Stack = createStackNavigator();
 export default function Render() {
@@ -37,6 +38,7 @@ export default function Render() {
         <Stack.Screen name="Thông tin truyện" component={Info} />
         <Stack.Screen name="Hỗ Trợ" component={Help} />
         <Stack.Screen name="Content" component={Content} options={{ headerShown: false }} />
+        <Stack.Screen name="Đổi avatar" component={Avatar} />
       </Stack.Navigator>
     </NavigationContainer>
   );

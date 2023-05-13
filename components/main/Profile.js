@@ -10,6 +10,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setTheme } from "../../redux/actions";
 import { auth } from "../../firebase";
+import { dataUsers } from "./Home";
 
 export default function Profile({ navigation }) {
   const theme = useSelector((state) => {
@@ -22,7 +23,6 @@ export default function Profile({ navigation }) {
   const onHanleThemeBlack = () => {
     dispatch(setTheme("black"))
   }
-  console.log(auth.currentUser.email)
   return (
     <View
       style={{
@@ -36,6 +36,9 @@ export default function Profile({ navigation }) {
         source={require("../../images/avatar.jpg")}
         style={{ width: 150, height: 150, borderRadius: 100, top: -30 }}
       />
+      {/* <TouchableOpacity style={{backgroundColor: "green", top:-20, padding: 5, borderRadius: 10}} onPress={() => navigation.navigate("Đổi avatar")}>
+      <Text style={{ fontSize: 18, color: "white", textAlign: "center" }}>Đổi avatar</Text>
+      </TouchableOpacity> */}
       <Text style={{ fontSize: 18, color: "green", textAlign: "center" }}>Xin chào,</Text>
       <Text style={{ fontSize: 18, color: "green", textAlign: "center" }}>{auth.currentUser.email}</Text>
       <View style={{ top: 10 }}>

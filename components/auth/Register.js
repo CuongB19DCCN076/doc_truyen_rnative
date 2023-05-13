@@ -11,6 +11,7 @@ import {
   View,
 } from "react-native";
 import { auth, db } from "../../firebase";
+import { getDatabase, ref, set } from "firebase/database";
 export default function Register({ navigation }) {
   const [checkReg, setCheckReg] = useState(false);
   const [user, setUser] = useState({
@@ -24,10 +25,7 @@ export default function Register({ navigation }) {
       .then((userCredential) => {
         // Signed in
         console.log(123333);
-        setDoc(doc(db, "users", auth.currentUser.uid), {
-          name,
-          email,
-        });
+        
         setCheckReg(false);
         navigation.navigate("Login")
         // ...

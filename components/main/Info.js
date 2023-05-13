@@ -21,11 +21,12 @@ import { useEffect } from "react";
 import { child, get, getDatabase, ref, set } from "firebase/database";
 export default function Info(props) {
   const [newState, setNewState] = useState(false);
-  function writeData(userId, email, comment) {
+  function writeData(userId, email, comment, idtruyen) {
     const db = getDatabase();
     set(ref(db, `comments/` + userId), {
       email: email,
       comment: comment,
+      idTruyen: idtruyen
     });
   }
 
@@ -38,14 +39,12 @@ export default function Info(props) {
   const history = useSelector((state) => {
     return state.historyItem;
   });
-  const commentsData = useSelector((state) => {
-    return state.reComment;
-  });
+  const dataCommentTruyen = dataComments.filter(item => {
+    return item.idTruyen === data.idTruyen
+  })
+  console.log(dataCommentTruyen);
   const item = intiState.home.find((element) => element.id === data.idTruyen);
   const [userComment, setUserComment] = useState("");
-  const [comments, setComments] = useState(
-    commentsData.find((it) => it.idTruyen === item.id)
-  );
   const dispatch = useDispatch();
   const navi = props.navigation;
   const onHandleChap = (id) => {
@@ -69,7 +68,7 @@ export default function Info(props) {
     navi.navigate("Content");
   };
   const onHandleSend = () => {
-    writeData(dataComments.length, auth.currentUser.email, userComment);
+    writeData(dataComments.length, auth.currentUser.email, userComment, data.idTruyen);
     setTimeout(() => {
       setNewState(!newState);
     },1000)
@@ -320,7 +319,7 @@ export default function Info(props) {
           </TouchableOpacity>
         </View>
         <View>
-          {dataComments.map((item, index) => {
+          {dataCommentTruyen.map((item, index) => {
             return (
               <View
                 style={{

@@ -8,8 +8,9 @@ import Home from "./main/Home";
 import Profile from "./main/Profile";
 import { useDispatch } from "react-redux";
 import History from "./main/History";
+import { child, get, getDatabase, ref } from "firebase/database";
 const Tab = createBottomTabNavigator();
-
+export var dataUsers = [];
 function Main() {
   const dispatch = useDispatch();
 
